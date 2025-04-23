@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Click Example</title>
+</head>
+<body>
+    <h1>Button Click Test</h1>
+    <button onclick="notifyPython()">Click Me!</button>
+    <script>
+        function notifyPython() {
+        // Pythonの関数を呼び出す
+        window.pywebview.api.button_clicked('Button was clicked!')
+          .then(response => {
+            console.log('Python response:', response);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        }
+    </script>
+</body>
+</html>
