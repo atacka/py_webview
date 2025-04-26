@@ -37,12 +37,14 @@ const res = window.pywebview.api.postMessage({ 'foo' : 'bar' })
 
 // for wry
 async function postMessage(obj){
-  function handler(e) {
-    window.removeEventListener('customEvent', handler);
-    resolve(e.detail);
-  }
-  window.addEventListener('customEvent', handler, false);
-  window.ipc.postMessage(JSON.stringify(obj));
+  return new Promise((resolve, _reject) => {
+    function handler(e) {
+      window.removeEventListener('customEvent', handler);
+      resolve(e.detail);
+    }
+    window.addEventListener('customEvent', handler, false);
+    window.ipc.postMessage(JSON.stringify(obj));
+  });
 }
 
 // for wry
