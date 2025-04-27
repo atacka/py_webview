@@ -12,6 +12,7 @@
     <p v-if="state">{{ state.cnt }}</p>
     <button @click="inc">inc</button>
     <button @click="dec">dec</button>
+    <button @click="sleep">sleep</button>
   </div>
 
   <script type="module">
@@ -35,6 +36,9 @@
           }
         };
         waitForApi();
+        window.addEventListener('stateChanged', (n)=>{
+          this.state = n.detail
+        }, false);
       },
       methods: {
         async inc(){
@@ -42,6 +46,9 @@
         },
         async dec(){
           this.state = await window.pywebview.api.postMessage({ 'kind' : 'dec' })
+        },
+        async sleep(){
+          this.state = await window.pywebview.api.postMessage({ 'kind' : 'sleep' })
         }
       },
     }).mount('#app');
